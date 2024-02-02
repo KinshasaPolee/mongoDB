@@ -63,7 +63,10 @@ router.patch("/:id/remove", async (req, res) => {
 
 // // Delete a single grade entry
 router.delete("/:id", async (req, res) => {
-    let deletedGrade = await Grade.findIdAndDelete(req.params.id)
+    await Grade.findIdAndDelete(req.params.id)
+    res.status(204).json({
+        data: "Item was deleted"
+    })
 });
 
 // // Get route for backwards compatibility
