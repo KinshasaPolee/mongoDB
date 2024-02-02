@@ -12,4 +12,4 @@ const gradeSchema = new Schema(
 
 const Grade = model('Grade', gradeSchema)
 
-module.exports = Grade
+export default Grade
