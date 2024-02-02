@@ -1,5 +1,18 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config()
+import mongoose from "mongoose";
+import grades from "./routes/grades"
 
+const ATLAS_uri = process.env.ATLAS_uri
+const db = mongoose.connect;
+
+db.on("error", (err) => console.log(err.message + " is mongod not running?"))
+db.on("open", () => console.log("mongo connected: ", ATLAS_URI))
+db.on("close", () => console.log("mongo disconnected"))
+
+
+mongoose.connect(ATLAS_URI)
 const PORT = 5050;
 const app = express();
 
