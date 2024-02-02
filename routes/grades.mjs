@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
     let collection = await db.collection("grades");
     let newDocument = req.body;
 
-     // rename fields for backwards compatibility
+    // rename fields for backwards compatibility
     if (newDocument.student_id) {
         newDocument.learner_id = newDocument.student_id;
         delete newDocument.student_id;
@@ -111,13 +111,32 @@ router.get("/class/:id", async (req, res) => {
     let collection = await db.collection("grades");
     let query = { class_id: Number(req.params.id) };
 
+// router.post("/class/:id", async (req, res) => {
+//     try {
+//         const grades = await Grade.find({ class_id: Number(req.params.id) }).exec();
+//         res.json(grades);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+// Update a single grade entry
+// router.patch("/:id", async (req, res) => {
+//     const updatedGrade = await Grade.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//     if (!updatedGrade) {
+//         return res.status(404).json({ error: 'Grade not found' });
+//     }
+//     res.status(200).json(updatedGrade);
+// });
+
+
 // Check for learner_id parameter
-    if (req.query.learner) query.learner_id = Number(req.query.learner);
+if (req.query.learner) query.learner_id = Number(req.query.learner);
 
-    let result = await collection.find(query).toArray();
+let result = await collection.find(query).toArray();
 
-    if (!result) res.send("Not found").status(404);
-    else res.send(result).status(200);
+if (!result) res.send("Not found").status(404);
+else res.send(result).status(200);
 });
 
 // Update a class id
